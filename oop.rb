@@ -12,9 +12,9 @@ class Unicorn
         "*~*#{name}*~*"
     end
 end
-Sufjan = Unicorn.new("Sufjan")
-puts Sufjan.color
-puts Sufjan.say
+sufjan = Unicorn.new("Sufjan")
+puts sufjan.color
+puts sufjan.say
 #  Write a class called Vampire
 #  it should have a dynamic name attribute
 #  it should have a pet attribute, that is a bat, by default BUT it could be dynamic if info is passed in initially
@@ -33,12 +33,12 @@ class Vampire
     end
 end
 
-Edward = Vampire.new("Edward", "cat")
-p Edward
-Edward.drink
-p Edward
-Dracula = Vampire.new("Dracula")
-p Dracula
+edward = Vampire.new("Edward", "cat")
+p edward
+edward.drink
+p edward
+dracula = Vampire.new("Dracula")
+p dracula
 
 #  Write a Dragon class
 #  it should have a dynamic name attribute (string)
@@ -47,17 +47,27 @@ p Dracula
 #  it should have a is_hungry attribute that is true by default
 #  it should have a eat method. If the dragon eats 4 times, it is no longer hungry
 class Dragon
-   attr_reader :name, :rider, :color, :is_hungry, :eat
+   attr_reader :name, :rider, :color, :is_hungry, :stomach
    def initialize(name, rider, color, is_hungry)
        @name = name
        @rider = rider
        @color = color
        @is_hungry = true
+       @stomach = 0
+   end
+
+   def eat(villager = 1)
+    @stomach += villager
+    if @stomach >= 4
+        @is_hungry = false
+    end
    end
 end
-
-Puff = Dragon.new("Puff", "Lenny", "green", 3)
-p Puff
+puff = Dragon.new("Puff", "Lenny", "green", 3)
+p puff
+puff.eat(5)
+p puff.stomach
+p puff
 
 #  Write a Hobbit class
 #  it should have a dynamic name attribute (string)
@@ -67,3 +77,54 @@ p Puff
 #  it should have an is_adult attribute (boolean) that is false by default. once a Hobbit is 33, it should be an adult
 #  it should have an is_old attribute that defaults to false. once a Hobbit is 101, it is old.
 #  it should have a has_ring attribute. If the Hobbit's name is "Frodo, true, if not, false.
+class Hobbit
+    attr_reader :name, :disposition, :age, :young, :is_adult, :is_old, :has_ring
+    def initialize(name, disposition, age = 0, young = true, is_adult = false, is_old = false, has_ring = false)
+        @name = name
+        @disposition = disposition
+        @age = age
+        @young = true
+        @is_adult = false
+        @is_old = false
+        @has_ring = false
+
+
+            if @age < 33
+              return  @young = true, @is_adult = false, @is_old = false
+            elsif @age >= 101
+              return @young = false, @is_adult = false, @is_old = true
+            else 
+                return @young = false, @is_adult = true, @is_old = false
+            end
+        end
+
+        def baggins
+            if @name == "Frodo"
+                @has_ring = true
+            end
+        end
+
+
+        def celebrate_birthday (birth_cycle = 1)
+                @age += birth_cycle
+                if @age < 33
+                    return @young = true, @is_adult = false, @is_old = false
+                elsif @age >= 101
+                    return @young = false, @is_adult = true, @old = true
+                else
+                    return @young = false, @is_adult = true, @is_old = false
+                end
+    end
+end
+
+
+    frodo = Hobbit.new("Frodo", "tired", 32)
+    sam = Hobbit.new("Samwise", "simp", 31)
+    bilbo = Hobbit.new("Bilbo", "possessed")
+    p frodo
+    p frodo.baggins
+    
+    p sam
+    p bilbo
+    p bilbo.celebrate_birthday(101)
+    
